@@ -14,17 +14,17 @@ public class TaxiOrder {
 
     private String startAddress;
 
-    private Long startLongitude;
+    private Float startLongitude;
 
-    private Long startLatitude;
+    private Float startLatitude;
 
     private String destinationAddress;
 
-    private Long destinationLongitude;
+    private Float destinationLongitude;
 
-    private Long destinationLatitude;
+    private Float destinationLatitude;
 
-    public TaxiOrder(String startAddress, long startLongitude, long startLatitude, String destinationAddress, long destinationLongitude, long destinationLatitude) {
+    public TaxiOrder(String startAddress, Float startLongitude, Float startLatitude, String destinationAddress, Float destinationLongitude, Float destinationLatitude) {
         this.startAddress = startAddress;
         this.startLongitude = startLongitude;
         this.startLatitude = startLatitude;
@@ -45,19 +45,19 @@ public class TaxiOrder {
         this.destinationAddress = destinationAddress;
     }
 
-    public Long getDestinationLongitude() {
+    public Float getDestinationLongitude() {
         return destinationLongitude;
     }
 
-    public void setDestinationLongitude(Long destinationLongitude) {
+    public void setDestinationLongitude(Float destinationLongitude) {
         this.destinationLongitude = destinationLongitude;
     }
 
-    public Long getDestinationLatitude() {
+    public Float getDestinationLatitude() {
         return destinationLatitude;
     }
 
-    public void setDestinationLatitude(Long destinationLatitude) {
+    public void setDestinationLatitude(Float destinationLatitude) {
         this.destinationLatitude = destinationLatitude;
     }
 
@@ -73,19 +73,19 @@ public class TaxiOrder {
         this.startAddress = address;
     }
 
-    public Long getStartLongitude() {
+    public Float getStartLongitude() {
         return startLongitude;
     }
 
-    public void setStartLongitude(Long startLongitude) {
+    public void setStartLongitude(Float startLongitude) {
         this.startLongitude = startLongitude;
     }
 
-    public Long getStartLatitude() {
+    public Float getStartLatitude() {
         return startLatitude;
     }
 
-    public void setStartLatitude(Long latitude) {
+    public void setStartLatitude(Float latitude) {
         this.startLatitude = latitude;
     }
 }

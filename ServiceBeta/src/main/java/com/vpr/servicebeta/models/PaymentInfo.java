@@ -12,7 +12,7 @@ public class PaymentInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long cost;
+    private Float cost;
 
     private String currency;
 
@@ -22,7 +22,7 @@ public class PaymentInfo {
 
     }
 
-    public PaymentInfo(Long cost, String currency, String paymentType) {
+    public PaymentInfo(Float cost, String currency, String paymentType) {
         this.cost = cost;
         this.currency = currency;
         this.paymentType = paymentType;
@@ -32,11 +32,11 @@ public class PaymentInfo {
         return id;
     }
 
-    public Long getCost() {
+    public Float getCost() {
         return cost;
     }
 
-    public void setCost(Long cost) {
+    public void setCost(Float cost) {
         this.cost = cost;
     }
 

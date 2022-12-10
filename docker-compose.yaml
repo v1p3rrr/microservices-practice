@@ -1,0 +1,14 @@
+version: '2'
+services:
+  alpha:
+    build: ./ServiceAlpha
+    ports:
+      - "8081:8081"
+  beta:
+    build: ./ServiceBeta
+    ports:
+      - "8082:8082"
+  krakend:
+    build: ./krakend
+    ports:
+      - "8080:8080"

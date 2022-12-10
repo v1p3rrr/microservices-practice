@@ -1,0 +1,38 @@
+{
+  "$schema": "https://www.krakend.io/schema/v3.json",
+  "version": 3,
+  "name": "KrakenD - API Gateway for microservices",
+  "timeout": "30000ms",
+  "cache_ttl": "3000s",
+  "extra_config": {
+    "router": {
+      "return_error_msg": true
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/v1/getall",
+      "method": "GET",
+      "input_query_strings": ["id"],
+      "backend": [
+        {
+          "url_pattern": "/getorder",
+          "method": "GET",
+          "host": [
+            "alpha:8081"
+          ]
+        },
+        {
+          "url_pattern": "/getpayment",
+          "method": "GET",
+          "host": [
+            "beta:8082"
+          ]
+        }
+      ]
+    }
+  ],
+  "output_encoding": "json",
+  "debug_endpoint": true,
+  "port": 8080
+}
