@@ -5,6 +5,7 @@ import com.vpr.servicebeta.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,13 +18,18 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping("/getpayment")
-    public Optional<PaymentInfo> getOrderById(@RequestParam Long id){
-        return paymentService.getTaxiOrder(id);
+    @GetMapping("/payment")
+    public Optional<PaymentInfo> getPaymentById(@RequestParam Long id){
+        return paymentService.getPayment(id);
+    }
+
+    @GetMapping("/allpayments")
+    public List<PaymentInfo> getAllPayments(){
+        return paymentService.getAllPayments();
     }
 
     @PostMapping("/addpayment")
     public Long addOrder(@RequestBody PaymentInfo paymentInfo){
-        return paymentService.addTaxiOrder(paymentInfo);
+        return paymentService.addPayment(paymentInfo);
     }
 }

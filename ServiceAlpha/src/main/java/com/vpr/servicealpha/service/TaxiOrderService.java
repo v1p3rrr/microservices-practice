@@ -3,8 +3,10 @@ package com.vpr.servicealpha.service;
 import com.vpr.servicealpha.models.TaxiOrder;
 import com.vpr.servicealpha.repository.TaxiOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +21,10 @@ public class TaxiOrderService {
 
     public Optional<TaxiOrder> getTaxiOrder(Long id){
         return taxiOrderRepository.findById(id);
+    }
+
+    public List<TaxiOrder> getAllTaxiOrders(){
+        return taxiOrderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Long addTaxiOrder(TaxiOrder taxiOrder){

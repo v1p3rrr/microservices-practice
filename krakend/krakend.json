@@ -11,23 +11,51 @@
   },
   "endpoints": [
     {
-      "endpoint": "/v1/getall",
+      "endpoint": "/v1/orderpayment",
       "method": "GET",
       "input_query_strings": ["id"],
       "backend": [
         {
-          "url_pattern": "/getorder",
+          "url_pattern": "/order",
           "method": "GET",
           "host": [
             "alpha:8081"
           ]
         },
         {
-          "url_pattern": "/getpayment",
+          "url_pattern": "/payment",
           "method": "GET",
           "host": [
             "beta:8082"
           ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/v1/getall",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/allorders",
+          "method": "GET",
+          "host": [
+            "alpha:8081"
+          ],
+          "is_collection": true,
+          "mapping": {
+            "collection": "orders"
+          }
+        },
+        {
+          "url_pattern": "/allpayments",
+          "method": "GET",
+          "host": [
+            "beta:8082"
+          ],
+          "is_collection": true,
+          "mapping": {
+            "collection": "payments"
+          }
         }
       ]
     }
