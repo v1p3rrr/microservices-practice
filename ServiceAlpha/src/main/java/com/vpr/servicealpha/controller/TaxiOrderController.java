@@ -2,7 +2,18 @@ package com.vpr.servicealpha.controller;
 
 import com.vpr.servicealpha.models.TaxiOrder;
 import com.vpr.servicealpha.service.TaxiOrderService;
+import io.jaegertracing.internal.JaegerTracer;
+import io.jaegertracing.internal.metrics.Metrics;
+import io.jaegertracing.internal.propagation.B3TextMapCodec;
+import io.jaegertracing.internal.reporters.RemoteReporter;
+import io.jaegertracing.internal.samplers.ConstSampler;
+import io.jaegertracing.thrift.internal.senders.HttpSender;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+import io.opentracing.contrib.spring.tracer.configuration.TracerAutoConfiguration;
+import io.opentracing.propagation.Format;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +21,14 @@ import java.util.Optional;
 
 @RestController
 public class TaxiOrderController {
+
+    public Tracer tracer = jaegerTracer();
+
+    @Bean
+    public io.opentracing.Tracer jaegerTracer() {
+        JaegerTracer.Builder builder = new JaegerTracer.Builder("ServiceAlpha");
+        return builder.build();
+    }
 
     private final TaxiOrderService taxiOrderService;
 
@@ -20,16 +39,30 @@ public class TaxiOrderController {
 
     @GetMapping("/order")
     public Optional<TaxiOrder> getOrderById(@RequestParam Long id){
-        return taxiOrderService.getTaxiOrder(id);
+        Span span = tracer.buildSpan("GET /order").start();
+        Optional<TaxiOrder> result = taxiOrderService.getTaxiOrder(id);
+        span.finish();
+        return result;
     }
 
     @GetMapping("/allorders")
     public List<TaxiOrder> getAllPayments(){
-        return taxiOrderService.getAllTaxiOrders();
+        Span span = tracer.buildSpan("GET /allorders").start();
+        List<TaxiOrder> result = taxiOrderService.getAllTaxiOrders();
+        span.finish();
+        return result;
     }
 
     @PostMapping("/addorder")
     public Long addOrder(@RequestBody TaxiOrder taxiOrder){
-        return taxiOrderService.addTaxiOrder(taxiOrder);
+        Span span = tracer.buildSpan("POST /addorder").start();
+        Long result = taxiOrderService.addTaxiOrder(taxiOrder);
+        span.finish();
+        return result;
+    }
+
+    @GetMapping("/healthcheck")
+    public String healthCheck(){
+        return "healthy";
     }
 }

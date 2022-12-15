@@ -4,11 +4,6 @@
   "name": "KrakenD - API Gateway for microservices",
   "timeout": "30000ms",
   "cache_ttl": "3000s",
-  "extra_config": {
-    "router": {
-      "return_error_msg": true
-    }
-  },
   "endpoints": [
     {
       "endpoint": "/v1/orderpayment",
@@ -60,6 +55,22 @@
       ]
     }
   ],
+  "extra_config":{
+    "telemetry/opencensus": {
+      "sample_rate": 100,
+      "reporting_period": 0,
+      "exporters": {
+        "jaeger": {
+          "endpoint": "http://jaeger:14268/api/traces",
+          "service_name":"krakend",
+          "buffer_max_count": 1000
+        }
+      }
+    },
+    "router": {
+      "return_error_msg": true
+    }
+  },
   "output_encoding": "json",
   "debug_endpoint": true,
   "port": 8080
