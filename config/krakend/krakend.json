@@ -52,7 +52,15 @@
             "collection": "payments"
           }
         }
-      ]
+      ],
+      "extra_config": {
+        "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://host.docker.internal:8443/auth/realms/krakend/protocol/openid-connect/certs",
+            "disable_jwk_security": true,
+            "operation_debug": true
+        }
+      }
     },
     {
       "endpoint": "/v1/healthcheck",
