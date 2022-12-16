@@ -53,6 +53,22 @@
           }
         }
       ]
+    },
+    {
+      "endpoint": "/v1/healthcheck",
+      "method": "GET",
+      "backend": [{"host": ["alpha:8082"], "method": "GET", "url_pattern": "/actuator/health"},
+      {"host": ["beta:8082"], "method": "GET", "url_pattern": "/actuator/health"}],
+      "extra_config": {
+        "proxy": {
+          "static": {
+            "data": {
+              "status": "UP"
+            },
+            "strategy": "always"
+          }
+        }
+      }
     }
   ],
   "extra_config":{
