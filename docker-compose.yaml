@@ -6,7 +6,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      JAEGER_AGENT_HOST: jaeger
+      JAEGER_AGENT_HOST: host.docker.internal
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
       interval: 10s
@@ -49,7 +49,7 @@ services:
     networks:
       - abnet
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082/v1/healthcheck"]
+      test: ["CMD", "curl", "-f", "http://host.docker.internal:8082/v1/healthcheck"]
       interval: 10s
       timeout: 30s
       retries: 3
