@@ -8,6 +8,7 @@ class ServiceAlphaApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

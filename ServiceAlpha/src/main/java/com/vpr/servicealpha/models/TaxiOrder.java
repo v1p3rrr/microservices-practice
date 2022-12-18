@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
+
 
 @Entity
 public class TaxiOrder {
@@ -36,6 +38,7 @@ public class TaxiOrder {
     public TaxiOrder() {
 
     }
+
 
     public String getDestinationAddress() {
         return destinationAddress;
@@ -88,4 +91,5 @@ public class TaxiOrder {
     public void setStartLatitude(Float latitude) {
         this.startLatitude = latitude;
     }
+
 }

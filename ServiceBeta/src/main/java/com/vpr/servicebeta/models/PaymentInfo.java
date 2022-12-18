@@ -18,14 +18,24 @@ public class PaymentInfo {
 
     private String paymentType;
 
-    public PaymentInfo() {
+    private Integer commissionPercent; // in %, not float numbers
 
+    public PaymentInfo() {
+        this.commissionPercent = 0;
     }
 
     public PaymentInfo(Float cost, String currency, String paymentType) {
         this.cost = cost;
         this.currency = currency;
         this.paymentType = paymentType;
+        this.commissionPercent = 0;
+    }
+
+    public PaymentInfo(Float cost, String currency, String paymentType, Integer commissionPercent) {
+        this.cost = cost;
+        this.currency = currency;
+        this.paymentType = paymentType;
+        this.commissionPercent = commissionPercent;
     }
 
     public Long getId() {
@@ -54,5 +64,18 @@ public class PaymentInfo {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public Integer getCommissionPercent() {
+        return commissionPercent;
+    }
+
+    public void setCommissionPercent(Integer commissionPercent) {
+        this.commissionPercent = commissionPercent;
+    }
+
+    public Float getPriceWithCommission() {
+        Float result = cost + cost*(commissionPercent.floatValue()/100);
+        return result;
     }
 }
