@@ -1,9 +1,9 @@
 package com.vpr.servicealpha.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import java.util.Objects;
 
@@ -26,17 +26,20 @@ public class TaxiOrder {
 
     private Float destinationLatitude;
 
-    public TaxiOrder(String startAddress, Float startLongitude, Float startLatitude, String destinationAddress, Float destinationLongitude, Float destinationLatitude) {
+    private Boolean isPaid;
+
+    public TaxiOrder(String startAddress, Float startLongitude, Float startLatitude, String destinationAddress, Float destinationLongitude, Float destinationLatitude, Boolean isPaid) {
         this.startAddress = startAddress;
         this.startLongitude = startLongitude;
         this.startLatitude = startLatitude;
         this.destinationAddress = destinationAddress;
         this.destinationLongitude = destinationLongitude;
         this.destinationLatitude = destinationLatitude;
+        this.isPaid = isPaid;
     }
 
     public TaxiOrder() {
-
+        this.isPaid=false;
     }
 
 
@@ -92,4 +95,11 @@ public class TaxiOrder {
         this.startLatitude = latitude;
     }
 
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
 }

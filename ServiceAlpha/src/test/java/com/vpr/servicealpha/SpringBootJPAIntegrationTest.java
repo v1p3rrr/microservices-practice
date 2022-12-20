@@ -19,7 +19,7 @@ public class SpringBootJPAIntegrationTest {
 
     @Test
     public void givenGenericEntityRepository_whenSaveAndRetrieveEntity_thenOK() {
-        TaxiOrder initialTaxiOrder = new TaxiOrder("Start address", 1.0f, 342.34f, "Destination address, Some Street, building 31", 23.3456f, 34f);
+        TaxiOrder initialTaxiOrder = new TaxiOrder("Start address", 1.0f, 342.34f, "Destination address, Some Street, building 31", 23.3456f, 34f, true);
         Long orderId = taxiOrderService
           .addTaxiOrder(initialTaxiOrder);
         TaxiOrder retrievedTaxiOrder = taxiOrderService

@@ -2,7 +2,6 @@ package com.vpr.servicebeta.repository;
 
 import com.vpr.servicebeta.models.PaymentInfo;
 import io.micrometer.core.annotation.Timed;
-import jakarta.annotation.Nonnull;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;

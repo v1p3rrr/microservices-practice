@@ -1,11 +1,13 @@
 package com.vpr.servicebeta.controller;
 
+import com.vpr.servicebeta.config.MQConfig;
 import com.vpr.servicebeta.models.PaymentInfo;
 import com.vpr.servicebeta.service.PaymentService;
 import io.jaegertracing.internal.JaegerTracer;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class PaymentController {
 
     public Tracer tracer = jaegerTracer();
+
+    @Autowired
+    private RabbitTemplate template;
 
     @Bean
     public io.opentracing.Tracer jaegerTracer() {
@@ -58,6 +63,8 @@ public class PaymentController {
         Span span = tracer.buildSpan("POST /addpayment").start();
         Long result = paymentService.addPayment(paymentInfo);
         span.finish();
+        template.convertAndSend(MQConfig.EXCHANGE,
+                MQConfig.ROUTING_KEY, "added new payment");
         return result;
     }
 

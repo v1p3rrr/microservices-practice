@@ -27,6 +27,11 @@ public class TaxiOrderService {
         return taxiOrderRepository.findById(id);
     }
 
+    @Timed("ExtractSingleOrderFromDB")
+    public TaxiOrder getLastTaxiOrder(){
+        return taxiOrderRepository.findFirstByOrderByIdDesc();
+    }
+
     @Timed("ExtractAllOrderFromDB")
     public List<TaxiOrder> getAllTaxiOrders(){
         return taxiOrderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));

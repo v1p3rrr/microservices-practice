@@ -15,6 +15,7 @@ services:
       start_period: 10s
     depends_on:
       - jaeger
+      - rabbitmq
     networks:
       - abnet      
 
@@ -33,6 +34,7 @@ services:
       start_period: 10s
     depends_on:
       - jaeger
+      - rabbitmq
     networks:
       - abnet      
   
@@ -54,7 +56,16 @@ services:
       timeout: 30s
       retries: 3
       start_period: 10s     
-  
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=password
+
   prometheus:
     image: prom/prometheus
     ports:

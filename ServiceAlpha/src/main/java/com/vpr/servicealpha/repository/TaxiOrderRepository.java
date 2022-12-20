@@ -20,6 +20,8 @@ public interface TaxiOrderRepository extends JpaRepository<TaxiOrder, Long> {
     @NonNull
     List<TaxiOrder> findAll(@NonNull Sort sort);
 
+    TaxiOrder findFirstByOrderByIdDesc();
+
     @Timed("AddOrderToDB")
     @NonNull TaxiOrder saveAndFlush(@NonNull TaxiOrder paymentInfo);
 }
