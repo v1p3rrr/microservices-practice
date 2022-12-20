@@ -138,7 +138,7 @@ services:
     image: logstash:8.3.3
     volumes:
       - ./config/logstash/config:/usr/share/logstash/config/
-      - ./config/logstash/pipeline:/usr/share/logstash/pipeline
+      - ./config/logstash/pipeline:/usr/share/logstash/pipeline/
     ports:
       - "5044:5044"
       - "5000:5000/tcp"
