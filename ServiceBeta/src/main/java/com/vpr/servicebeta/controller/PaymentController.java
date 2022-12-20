@@ -59,7 +59,7 @@ public class PaymentController {
     }
 
     @PostMapping("/addpayment")
-    public Long addOrder(@RequestBody PaymentInfo paymentInfo){
+    public Long addPayment(@RequestBody PaymentInfo paymentInfo){
         Span span = tracer.buildSpan("POST /addpayment").start();
         Long result = paymentService.addPayment(paymentInfo);
         span.finish();

@@ -19,14 +19,14 @@ public class SpringBootJPAIntegrationTest {
     private PaymentService paymentService;
 
     @Test
-    public void givenGenericEntityRepository_whenSaveAndRetrieveEntity_thenOK() {
+    public void givenEntityRepository_whenSaveAndRetrieveEntity_thenOK() {
         PaymentInfo initialPaymentInfo = new PaymentInfo(250.5f, "rub", "alpha", 15);
         Long paymentId = paymentService
           .addPayment(initialPaymentInfo);
         PaymentInfo retrievedPaymentInfo = paymentService
           .getPayment(paymentId).orElse(null);
  
-        assertNotNull(retrievedPaymentInfo, "Retrieved order is not null");
+        assertNotNull(retrievedPaymentInfo, "Retrieved payment is not null");
         assertEquals(paymentId, retrievedPaymentInfo.getId(), "Comparison of ids");
         assertEquals(initialPaymentInfo.getCost(), retrievedPaymentInfo.getCost(), "Comparison of cost");
         assertEquals(initialPaymentInfo.getPaymentType(), retrievedPaymentInfo.getPaymentType(), "Comparison of payment types");
