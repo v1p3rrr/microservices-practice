@@ -58,6 +58,9 @@ public class TaxiOrderController {
 
     @GetMapping("/healthcheck")
     public String healthCheck(){
+        Span span = tracer.buildSpan("GET /healthcheck").start();
+        System.out.println("healthy");
+        span.finish();
         return "healthy";
     }
 }

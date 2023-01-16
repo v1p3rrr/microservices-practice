@@ -6,11 +6,17 @@ Made with **Spring Boot**
 *Service Beta* simulates providing Payment information  
 
 ## Build and run
-To build and run docker compose containers:
+To build and run docker compose containers use commands below or or simply run ```build_images.bat``` file and type `docker-compose up -d` after it finishes its work.
 ```
+cd ServiceAlpha
 mvnw package && java -jar target/service-alpha-microservices.jar
+cd ../ServiceBeta
 mvnw package && java -jar target/service-beta-microservices.jar
-docker-compose up 
+cd ..
+docker-compose down
+docker image rm -f microservices-practice-alpha
+docker image rm -f microservices-practice-beta
+docker-compose up -d
 ```
 
 ## How to use
@@ -28,12 +34,15 @@ Example of required JSON body:
     "destinationLatitude": 324.8689
 }
 ```
-### Payment:  
+### Payment: 
+(need to manually specify payment id which corresponds to generated to taxiorder id in order to make it marked as paid) 
 ```json
 {
-    "cost": 133.65,
+    "id": 1,
+    "cost": 132.65,
     "currency": "rub",
-    "paymentType": "sberbank"
+    "paymentType": "sberbank",
+    "commissionPercent": 10
 }
 ```
 
@@ -49,7 +58,7 @@ In case you need to check backend **GET** responses directly: `http://localhost:
 
 Visit `http://localhost:8080/v1/getall` to get all the data. If you want to get direct response from each backend: `http://localhost:8081/allorders` and `http://localhost:8082/allpayments`  
 
-### Monitoring
+## Monitoring
 
 Prometheus is available at `http://localhost:9090`, Graphana is available at `http://localhost:3000`  
 
@@ -59,7 +68,7 @@ Zabbix is available at `http://localhost:80`, it is used only for healthchecking
 
 ELK, just as Jaeger, doesn't see services inside the containers, so you have to run them directly from IDE in order to collect logs. Kibana web interface is at `http://localhost:5601`, logstash is at `http://localhost:9600`, elasticsearch is at `http://localhost:9600`  
 
-### Authorization
+## Authorization
 
 Keycloak web interface is available at `http://localhost:8443/auth/`, although at its first start you have to open its container terminal and run these commands:
 ```

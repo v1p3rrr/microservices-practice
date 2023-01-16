@@ -20,7 +20,8 @@ public class SpringBootJPAIntegrationTest {
 
     @Test
     public void givenEntityRepository_whenSaveAndRetrieveEntity_thenOK() {
-        PaymentInfo initialPaymentInfo = new PaymentInfo(250.5f, "rub", "alpha", 15);
+        PaymentInfo initialPaymentInfo = new PaymentInfo(1L, 250.5f, "rub", "alpha", 15);
+        System.out.println(initialPaymentInfo.getId());
         Long paymentId = paymentService
           .addPayment(initialPaymentInfo);
         PaymentInfo retrievedPaymentInfo = paymentService

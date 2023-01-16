@@ -34,4 +34,9 @@ public class PaymentService {
     public Long addPayment(PaymentInfo paymentInfo){
         return paymentRepository.saveAndFlush(paymentInfo).getId();
     }
+
+    @Timed("DeletePaymentFromDB")
+    public void deletePaymentById(Long paymentId){
+        paymentRepository.deleteById(paymentId);
+    }
 }

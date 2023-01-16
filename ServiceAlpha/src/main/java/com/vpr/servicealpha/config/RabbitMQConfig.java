@@ -9,15 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MQConfig {
+public class RabbitMQConfig {
 
-    public static final String QUEUE = "message_queue";
-    public static final String EXCHANGE = "message_exchange";
-    public static final String ROUTING_KEY = "message_routingKey";
+    public static final String QUEUE = "taxi_paymentid_queue";
+    public static final String QUEUE_RESPONSE = "taxi_paymentid_queue_response";
+    public static final String EXCHANGE = "taxi_exchange";
+    public static final String ROUTING_KEY = "taxi_paymentid_routing_key";
+    public static final String ROUTING_KEY_RESPONSE = "taxi_paymentid_routing_key_response";
 
     @Bean
     public Queue queue() {
         return  new Queue(QUEUE);
+    }
+
+    @Bean
+    public Queue queueResponse() {
+        return  new Queue(QUEUE_RESPONSE);
     }
 
     @Bean
@@ -26,11 +33,19 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding() {
         return BindingBuilder
-                .bind(queue)
-                .to(exchange)
+                .bind(queue())
+                .to(exchange())
                 .with(ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding bindingResponse() {
+        return BindingBuilder
+                .bind(queueResponse())
+                .to(exchange())
+                .with(ROUTING_KEY_RESPONSE);
     }
 
     @Bean

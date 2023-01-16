@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class PaymentInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Float cost;
@@ -31,7 +31,16 @@ public class PaymentInfo {
         this.commissionPercent = 0;
     }
 
-    public PaymentInfo(Float cost, String currency, String paymentType, Integer commissionPercent) {
+    public PaymentInfo(Long id, Float cost, String currency, String paymentType) {
+        this.id = id;
+        this.cost = cost;
+        this.currency = currency;
+        this.paymentType = paymentType;
+        this.commissionPercent = 0;
+    }
+
+    public PaymentInfo(Long id, Float cost, String currency, String paymentType, Integer commissionPercent) {
+        this.id = id;
         this.cost = cost;
         this.currency = currency;
         this.paymentType = paymentType;

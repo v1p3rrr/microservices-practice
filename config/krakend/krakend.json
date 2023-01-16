@@ -63,6 +63,34 @@
       }
     },
     {
+      "endpoint": "/v1/getall_noauth",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/allorders",
+          "method": "GET",
+          "host": [
+            "alpha:8081"
+          ],
+          "is_collection": true,
+          "mapping": {
+            "collection": "orders"
+          }
+        },
+        {
+          "url_pattern": "/allpayments",
+          "method": "GET",
+          "host": [
+            "beta:8082"
+          ],
+          "is_collection": true,
+          "mapping": {
+            "collection": "payments"
+          }
+        }
+      ]
+    },
+    {
       "endpoint": "/v1/healthcheck",
       "method": "GET",
       "backend": [{"host": ["alpha:8082"], "method": "GET", "url_pattern": "/actuator/health"},

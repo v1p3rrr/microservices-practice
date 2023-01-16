@@ -1,6 +1,6 @@
 package com.vpr.servicebeta.controller;
 
-import com.vpr.servicebeta.config.MQConfig;
+import com.vpr.servicebeta.config.RabbitMQConfig;
 import com.vpr.servicebeta.models.PaymentInfo;
 import com.vpr.servicebeta.service.PaymentService;
 import io.jaegertracing.internal.JaegerTracer;
@@ -22,7 +22,7 @@ public class PaymentController {
     public Tracer tracer = jaegerTracer();
 
     @Autowired
-    private RabbitTemplate template;
+    private RabbitTemplate rabbit;
 
     @Bean
     public io.opentracing.Tracer jaegerTracer() {
@@ -55,6 +55,9 @@ public class PaymentController {
 
     @GetMapping("/healthcheck")
     public String healthCheck(){
+        Span span = tracer.buildSpan("GET /healthcheck").start();
+        System.out.println("healthy");
+        span.finish();
         return "healthy";
     }
 
@@ -63,8 +66,9 @@ public class PaymentController {
         Span span = tracer.buildSpan("POST /addpayment").start();
         Long result = paymentService.addPayment(paymentInfo);
         span.finish();
-        template.convertAndSend(MQConfig.EXCHANGE,
-                MQConfig.ROUTING_KEY, "added new payment");
+        rabbit.convertAndSend(RabbitMQConfig.EXCHANGE,
+                RabbitMQConfig.ROUTING_KEY, result);
+        System.out.println("Sent payment ID: "+result);
         return result;
     }
 

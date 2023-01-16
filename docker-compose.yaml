@@ -67,6 +67,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=password
     networks:
       - abnet
+      
   prometheus:
     image: prom/prometheus
     ports:
